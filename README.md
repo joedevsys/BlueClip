@@ -64,9 +64,11 @@ To Be Done...
 - If autopaste is disabled synchronisation only occurs when you click “Paste Now” (=paste to the other machine’s clipboard).
 
 
+## 
+## 
 ## Developer
 
-Setup
+**Setup**
 ```
 pip install pyserial
 pip install pyperclip
@@ -74,7 +76,7 @@ pip install tkinter
 pip install pyinstaller --->(for compilation to .exe)
 ```
 
-Compile for windows
+**Compile for windows**
 ```
 cd \<source directory\>
 
@@ -84,6 +86,23 @@ pyinstaller --onefile -i blueclip.ico "blueclip.pyw"   --->blueclip.exe normal o
 
 copy blueclip.pyw blueclip.py
 pyinstaller --onefile -i blueclip.ico "blueclip debug.py"    --->blueclip debug.exe runs with additional console
+```
+
+**pyserial runtime exceptions**
+
+```
+N.B. SerialError subclassed from IOError. All info returned as a string 
+	e.g. "could not open port COM5: OSError(22,element not found, none, 22)"
+    errornum and winerror are empty so must parse these from the string
+        
+During Open: 
+2,2        =wrong port, BT disabled/fault       		caller or listener
+22,1168    =remote BT stack error/fault???     		 	caller only
+22,121     =remote BT disconnected, connection still being setup      caller only
+22,1256    =BT connected remote app not connecting        	caller only
+During connection:
+22.1617    =local device removed/local BT disabled         	listener (later --> 2.2)
+sendfail, not ready =remote app not running, remote app not connecting, remote BT not enabled   (listener)
 ```
 
 
