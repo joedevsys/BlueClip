@@ -10,10 +10,10 @@ Large buttons are displayed for easy accessibility and for people who use eyegaz
 
 Why bluetooth sync? There are many utilities to sync clipboards over local area networks but these suffer from a number of disadvantages. If devices are on different subnets (e.g. one wired and one wireless) it can be hard to configure connections through firewalls & routers. Cloud based commercial solutions introduce other problems or can be too complex as they add other functionality.  The Windows operating system has a built-in clipboard sync feature but this requires signing into a Microsoft Account which isn’t always desirable and not possible on some kiosk-style devices. Bluetooth allows repeatable local fixed connections to be pre-configured which are independent of internet connectivity and not tied to network login accounts etc.
 
-### Installation
+## Installation
 Copy all the files to a suitable location (e.g. c:/program files/BlueClip/) and create a shortcut for the .exe file if desired. Blueclip runs from any location but keep all its files together in one folder.
 
-### Configuration (Windows10)
+## Configuration (Windows10)
 ![image](https://github.com/joedevsys/BlueClip/assets/84750746/e75b7dc2-550e-4ee7-b562-24d9d3cdfdf8)
 
 Create a Bluetooth pairing between your devices in the normal way
@@ -51,10 +51,10 @@ Setup bluetooth serial connections and edit the config file on each machine as f
 			com7 “Machine3”  	 of the targets they connect to 
 ```
 
-### Configuration (Linux)
+## Configuration (Linux)
 To Be Done...
 
-### Usage
+## Usage
 
 - Launch BlueClip.exe and it will keep trying to connect to the other machine. Once blueclip is launched on the other machine they will automatically connect. 
 - If multiple machines are configured then clicking on change connection will try and connect ot the next target. It will remember this new target and try and reconnect next time it’s launched.
@@ -62,3 +62,28 @@ To Be Done...
 - Once connected if autominimise is enabled in the .INI file the app will minimise. 
 - If autopaste is enabled then every time the clipboard changes it will be synchronised to the other machine. N.B. If for some reason the synchronisation doesn’t complete then repeating the same Copy again and again will not succeed. You will need to Copy something different to trigger another sync, and then go back and try and Copy the thing you originally wanted.
 - If autopaste is disabled synchronisation only occurs when you click “Paste Now” (=paste to the other machine’s clipboard).
+
+
+## Developer
+
+Setup
+```
+pip install pyserial
+pip install pyperclip
+pip install tkinter
+pip install pyinstaller --->(for compilation to .exe)
+```
+
+Compile for windows
+```
+cd \<source directory\>
+
+pyinstaller --onefile \<source filename\>    --->.exe produced from filename *.py will run with console active. Filename *.pyw produces .exe with no console output. make sure you're in the source directory!
+
+pyinstaller --onefile -i blueclip.ico "blueclip.pyw"   --->blueclip.exe normal operation
+
+copy blueclip.pyw blueclip.py
+pyinstaller --onefile -i blueclip.ico "blueclip debug.py"    --->blueclip debug.exe runs with additional console
+```
+
+
