@@ -1,0 +1,25 @@
+#Config file for BlueClip
+
+
+[DEFAULT]
+
+#If hostName is commented then the local host name will be used.
+hostname = Host1
+
+autopaste = 1
+autominimise = 0  #if AutoPaste =1 will autominimise when connected.
+#immediate = 0     #Not used at the moment
+
+
+#List of bluetooth ports to connect to, multiline entry, one port per line, each line after ports= must be indented
+#Linux syntax:  /dev/rfcomm0
+#Windows syntax: com3
+#Can include a targetName for each port. This is used as a label before connection but overriden by actual target hostname once connected
+#If only 1 port listed will keep retrying this port automatically.
+
+
+ports=
+  /dev/rfcomm0 "Target2"
+  /dev/rfcomm3 "Target3"
+
+
