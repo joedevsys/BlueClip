@@ -13,15 +13,18 @@ Why bluetooth sync? There are many utilities to sync clipboards over local area 
 ## Installation
 Copy all the files to a suitable location (e.g. c:/program files/BlueClip/) and create a shortcut for the .exe file if desired. Blueclip runs from any location but keep all its files together in one folder.
 
-## Configuration (Windows10)
+## Configuration
 ![image](https://github.com/joedevsys/BlueClip/assets/84750746/e75b7dc2-550e-4ee7-b562-24d9d3cdfdf8)
 
-Create a Bluetooth pairing between your devices in the normal way
-Setup bluetooth serial connections and edit the config file on each machine as follows:
+1. Create a Bluetooth pairing between your devices in the normal way
+2. Setup bluetooth serial connections. On one machine create an **incoming** serial port which waits for a connection. on the other machine create an **outgoing** serial port that calls the incoming port on the first machine.
+3. Edit the .ini files on each machine to tell BlueClip which ports to use.
 
+### Windows 10
+   
 **On Machine #1:**   _[This machine becomes a Listener waiting for connection]_
 	
- Bluetooth Settings|More Bluetooth Options-->comm ports tab: ADD, Incoming connection
+ Bluetooth Settings|More Bluetooth Options-->comm ports tab: ADD, **Incoming connection**
 	Take note of virtual comm port number.
 	Now edit BlueClip.ini and set the hostname, port and other options as desired.
 	(N.B. ports entry can be multiline but typically the listener will only have one line.)
@@ -36,10 +39,10 @@ Setup bluetooth serial connections and edit the config file on each machine as f
 
 **On Machine #2:**  _[This machine becomes the Caller that calls the Listener]_
 	
- Bluetooth Settings|More Bluetooth Options-->comm ports tab: ADD, Outgoing connection, 	Browse to target = Machine #1 Port 3    	 ←the target machine & it’s port
-	Take note of new virtual comm port number just created (this might be different to 	Machine#1’s port).
+ Bluetooth Settings|More Bluetooth Options-->comm ports tab: ADD, **Outgoing connection**, 	Browse to target = Machine #1 Port \<number  from above\>    	 ←the target machine & it’s port
+	Take note of new virtual comm port number just created (this might be different to Machine#1’s port).
 	Now edit BlueClip.ini and set the hostname, port and other options as desired.
-	(Note the ports entry can be multiline as this machine can call multiple Listeners. Each line has the outgoing port just created on this machine but the name is the name of the target 	machine it connects to).
+	(Note the ports entry can be multiline as this machine can call multiple Listeners. Each line has the outgoing port just created on this machine but the name is the name of the target machine it connects to).
 ```
 	e.g. 	[DEFAULT]
 		hostname = Machine2		←the name of this machine
@@ -51,7 +54,7 @@ Setup bluetooth serial connections and edit the config file on each machine as f
 			com7 “Machine3”  	 of the targets they connect to 
 ```
 
-## Configuration (Linux)
+### Linux
 To Be Done...
 
 ## Usage
