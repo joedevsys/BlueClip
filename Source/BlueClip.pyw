@@ -5,7 +5,7 @@ import serial.threaded
 import time
 import platform
 import sys
-import pyperclip
+import pyclip
 import getopt
 import traceback
 import configparser
@@ -175,7 +175,7 @@ class clipSharer():
     def receiveClip(self, data):
         sys.stdout.write('Clipboard ' + data)
         if len(data) > 0:
-            pyperclip.copy(data)
+            pyclip.copy(data)
             self.window.prevclip = data
             notify("Clip Received","")
     
@@ -220,7 +220,7 @@ class clipSharer():
         if self.window.auto:
             if self.window.autominimise and self.connected:
                 self.minimise()
-            currentclip = pyperclip.paste()
+            currentclip = pyclip.paste(text=True)
             if currentclip != self.window.prevclip:
                 sys.stdout.write('Paste Auto\n')
                 self.window.prevclip = currentclip
@@ -277,13 +277,13 @@ class clipSharer():
                     if self.window is None:  #immediate:
                         time.sleep(2)
                         sys.stdout.write('Paste immediate\n')
-                        cmd = pyperclip.paste()
+                        cmd = pyclip.paste(text=True)
                         self.sendCommand(cmd)
                         time.sleep(2)
                     else:
                         self.window.showStatus(False,"Bluetooth Connected\nWaiting for response",False)
                         if self.window.auto:
-                            self.window.prevclip = pyperclip.paste()
+                            self.window.prevclip = pyclip.paste(text=True)
                             self.window.after(5000, self.autoPaste)
                         self.window.after(4213, self.sendPing)
                         self.window.abandonConnection.set(0)
@@ -390,14 +390,14 @@ class MainWindow(Tk):
     def clickBtnPaste(self):
         sys.stdout.write('Paste Button\n')
         if self.process is not None:
-            clip = pyperclip.paste()
+            clip = pyclip.paste(text=True)
             self.process.sendClip(clip)
 
 
     def clickBtnAuto(self):
         self.auto = not self.auto
         if self.auto:
-            self.prevclip = pyperclip.paste()
+            self.prevclip = pyclip.paste(text=True)
             if self.process is not None:
                 self.after(5000, self.process.autoPaste)
                 self.btnAuto.config(bg='green')
