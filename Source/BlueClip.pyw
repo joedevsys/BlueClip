@@ -11,7 +11,7 @@ import traceback
 import configparser
 import inspect, os.path
 import re
-from winotify import Notification
+from plyer import notification
 from tendo import singleton
 
 
@@ -77,12 +77,12 @@ def get_my_path():
 
 
 def notify(title,data):
-    if platform.system()=='Windows':
-      toast = Notification(app_id="BLUE CLIP",
-                     title=title,
-                     msg=data,
-                     icon=get_my_path()+"BlueClip.ico")  
-      toast.show()
+    notification.notify(app_name="BLUE CLIP",
+            title=title,
+            message=data,
+            app_icon=get_my_path()+"BlueClip.ico",
+            timeout=2,
+            toast=True)
 
 
 
